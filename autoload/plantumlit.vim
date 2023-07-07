@@ -18,7 +18,7 @@ set cpo&vim
 
 " variable {{{1
 let g:plantumlit_plantuml_jar_path = get(g:, 'plantumlit_plantuml_jar_path', expand("<sfile>:p:h") . "/../plantuml.jar")
-let g:plantumlit_plantuml_include_path = get(g:, 'plantumlit_plantuml_include_path', expand("~/.config/plantuml/include/"))
+" let g:plantumlit_plantuml_include_path = get(g:, 'plantumlit_plantuml_include_path', expand("~/.config/plantuml/include/"))
 let g:plantumlit_asciiart_utf = get(g:, 'plantumlit_asciiart_utf', 1)
 
 " function {{{1
@@ -40,7 +40,8 @@ function! plantumlit#updatePreview(args) abort
     call s:mungeDiagramInTmpFile(tmpfname)
     let b:plantumlit_preview_fname = fnamemodify(tmpfname,  ':r') . '.' . ext
 
-    let cmd = "java -Dapple.awt.UIElement=true -Dplantuml.include.path=\"". g:plantumlit_plantuml_include_path ."\" -splash: -jar ". g:plantumlit_plantuml_jar_path ." -charset ". charset ." -t" . type ." ". tmpfname
+    " let cmd = "java -Dapple.awt.UIElement=true -Dplantuml.include.path=\"". g:plantumlit_plantuml_include_path ."\" -splash: -jar ". g:plantumlit_plantuml_jar_path ." -charset ". charset ." -t" . type ." ". tmpfname
+    let cmd = "java -jar ". g:plantumlit_plantuml_jar_path ." -charset ". charset ." -t" . type ." ". tmpfname
 
     let write = has_key(a:args, 'write') && a:args["write"] == 1
     if exists("*jobstart")
