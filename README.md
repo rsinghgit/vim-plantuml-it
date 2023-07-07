@@ -1,19 +1,14 @@
-```
-███████╗██╗     ██╗   ██╗███╗   ███╗██╗      ██████╗ ██████╗ ██████╗ 
-██╔════╝██║     ██║   ██║████╗ ████║██║     ██╔═══██╗██╔══██╗██╔══██╗
-███████╗██║     ██║   ██║██╔████╔██║██║     ██║   ██║██████╔╝██║  ██║
-╚════██║██║     ██║   ██║██║╚██╔╝██║██║     ██║   ██║██╔══██╗██║  ██║
-███████║███████╗╚██████╔╝██║ ╚═╝ ██║███████╗╚██████╔╝██║  ██║██████╔╝
-╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ 
-```
+*PlantUMLIt
+
+
 
 Introduction
 ============
 
-Slumlord is built atop the wang-hardeningly awesome [plantuml](http://plantuml.com).
+plantumlit (PlantUML Inline Text) is built atop the wang-hardeningly awesome [plantuml](http://plantuml.com).
 It gives you a "live preview" of your UML diagrams when you save.
 
-![Demo](https://github.com/scrooloose/vim-slumlord/raw/master/_assets/demo.gif)
+![Demo](https://github.com/rsinghgit/vim-plantumlit/raw/master/_assets/demo.gif)
 
 
 Installation
@@ -23,17 +18,17 @@ First you need Java installed.
 
 Then, install this plugin with your favourite vim plugin manager.
 
-For [vundle](https://github.com/VundleVim/Vundle.vim), just stick this in your
+For [Vim Plug](https://github.com/junegunn/vim-plug), just stick this in your
 vimrc and smoke it:
 
 ```
-Plugin 'scrooloose/vim-slumlord'
+Plug 'rsinghgit/vim-plantumlit'
 ```
 
-Then run `:Vundle install`
+Then run `:PlugInstall`
 
 I also recommend installing the
-[plantuml-syntax](https://github.com/aklt/plantuml-syntax) plugin as Slumlord
+[plantuml-syntax](https://github.com/aklt/plantuml-syntax) plugin as plantumlit
 uses this for its syntax file.
 
 ```

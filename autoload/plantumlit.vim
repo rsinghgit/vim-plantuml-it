@@ -1,4 +1,5 @@
 " PlantUML Live Preview for ascii/unicode art
+" @Updater: Ravi Singh
 " @Author: Martin Grenfell <martin.grenfell@gmail.com>
 " @Date: 2018-12-07 13:00:22
 " @Last Modified by: Tsuyoshi CHO <Tsuyoshi.CHO@Gmail.com>
@@ -7,21 +8,21 @@
 " PlantUML preview plugin core
 
 " Intro  {{{1
-if exists("g:autoloaded_slumlord")
+if exists("g:autoloaded_plantumlit")
   finish
 endif
-let g:autoloaded_slumlord = 1
+let g:autoloaded_plantumlit = 1
 
 let s:save_cpo = &cpo
 set cpo&vim
 
 " variable {{{1
-let g:slumlord_plantuml_jar_path = get(g:, 'slumlord_plantuml_jar_path', expand("<sfile>:p:h") . "/../plantuml.jar")
-let g:slumlord_plantuml_include_path = get(g:, 'slumlord_plantuml_include_path', expand("~/.config/plantuml/include/"))
-let g:slumlord_asciiart_utf = get(g:, 'slumlord_asciiart_utf', 1)
+let g:plantumlit_plantuml_jar_path = get(g:, 'plantumlit_plantuml_jar_path', expand("<sfile>:p:h") . "/../plantuml.jar")
+let g:plantumlit_plantuml_include_path = get(g:, 'plantumlit_plantuml_include_path', expand("~/.config/plantuml/include/"))
+let g:plantumlit_asciiart_utf = get(g:, 'plantumlit_asciiart_utf', 1)
 
 " function {{{1
-function! slumlord#updatePreview(args) abort
+function! plantumlit#updatePreview(args) abort
     if !s:shouldInsertPreview()
         return
     end
@@ -30,16 +31,16 @@ function! slumlord#updatePreview(args) abort
 
     let type = 'utxt'
     let ext  = 'utxt'
-    if !g:slumlord_asciiart_utf
+    if !g:plantumlit_asciiart_utf
       let type = 'txt'
       let ext  = 'atxt'
     endif
 
     let tmpfname = tempname()
     call s:mungeDiagramInTmpFile(tmpfname)
-    let b:slumlord_preview_fname = fnamemodify(tmpfname,  ':r') . '.' . ext
+    let b:plantumlit_preview_fname = fnamemodify(tmpfname,  ':r') . '.' . ext
 
-    let cmd = "java -Dapple.awt.UIElement=true -Dplantuml.include.path=\"". g:slumlord_plantuml_include_path ."\" -splash: -jar ". g:slumlord_plantuml_jar_path ." -charset ". charset ." -t" . type ." ". tmpfname
+    let cmd = "java -Dapple.awt.UIElement=true -Dplantuml.include.path=\"". g:plantumlit_plantuml_include_path ."\" -splash: -jar ". g:plantumlit_plantuml_jar_path ." -charset ". charset ." -t" . type ." ". tmpfname
 
     let write = has_key(a:args, 'write') && a:args["write"] == 1
     if exists("*jobstart")
@@ -160,7 +161,7 @@ function! s:InPlaceUpdater.update(args) abort
     let startCol = col(".")
 
     call self.__deletePreviousDiagram()
-    call self.__insertDiagram(b:slumlord_preview_fname)
+    call self.__insertDiagram(b:plantumlit_preview_fname)
     call s:addTitle()
 
     call cursor(line("$") - (lastLine - startLine), startCol)
@@ -196,7 +197,7 @@ endfunction
 " WinUpdater object {{{1
 let s:WinUpdater = {}
 function! s:WinUpdater.update(args) abort
-    let fname = b:slumlord_preview_fname
+    let fname = b:plantumlit_preview_fname
     call self.__moveToWin()
     %d
 
@@ -215,11 +216,11 @@ function! s:WinUpdater.update(args) abort
 endfunction
 
 function s:WinUpdater.__moveToWin() abort
-    if exists("b:slumlord_bnum") && bufexists(b:slumlord_bnum)
-        if bufwinnr(b:slumlord_bnum) != -1
-            exec bufwinnr(b:slumlord_bnum) . "wincmd w"
+    if exists("b:plantumlit_bnum") && bufexists(b:plantumlit_bnum)
+        if bufwinnr(b:plantumlit_bnum) != -1
+            exec bufwinnr(b:plantumlit_bnum) . "wincmd w"
         else
-            exec b:slumlord_bnum . "sb"
+            exec b:plantumlit_bnum . "sb"
         endif
     else
         let prev_bnum = bufnr("")
@@ -228,7 +229,7 @@ function s:WinUpdater.__moveToWin() abort
         setlocal bufhidden=wipe
         setlocal noswapfile
         setlocal textwidth=0 " avoid automatic line break
-        call setbufvar(prev_bnum, "slumlord_bnum", bufnr(""))
+        call setbufvar(prev_bnum, "plantumlit_bnum", bufnr(""))
         call self.__setupWinOpts()
     endif
 endfunction
@@ -259,7 +260,7 @@ endfunction
 
 
 " other shit {{{1
-if exists("g:slumlord_separate_win") && g:slumlord_separate_win
+if exists("g:plantumlit_separate_win") && g:plantumlit_separate_win
     let s:updater = s:WinUpdater
 else
     let s:updater = s:InPlaceUpdater

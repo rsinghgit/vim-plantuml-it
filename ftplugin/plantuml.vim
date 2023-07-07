@@ -7,10 +7,10 @@
 " PlantUML Filetype preview kick
 
 " Intro  {{{1
-if exists("b:loaded_slumlord")
+if exists("b:loaded_plantumlit")
     finish
 endif
-let b:loaded_slumlord=1
+let b:loaded_plantumlit=1
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -19,9 +19,9 @@ set cpo&vim
 setlocal nowrap
 
 " autocmd {{{1
-augroup slumlord
+augroup plantumlit
     autocmd!
-    autocmd BufWritePre * if &ft =~ 'plantuml' | silent call slumlord#updatePreview({'write': 1}) | endif
+    autocmd BufWritePre * if &ft =~ 'plantuml' | silent call plantumlit#updatePreview({'write': 1}) | endif
 augroup END
 
 " Outro {{{1
